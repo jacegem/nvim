@@ -4,34 +4,55 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
+-- Move Lines
+-- map("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+-- map("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+-- map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+-- map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+-- map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+-- map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+map({ "n", "i", "v" }, "<A-j>", "", opts)
+map({ "n", "i", "v" }, "<A-k>", "", opts)
+
 -- normal mode
 map("i", "jj", "<ESC>", { silent = true })
 
 -- insert mode
 map("n", "o", "i", opts)
+map("n", ";", "<S-a>", opts)
 map("n", "a", "o", opts)
 
 -- Navigate
-map({ "n", "v" }, "i", "k", opts)
+map("n", "i", "k", opts)
+map("v", "i", "k", opts)
 map({ "n", "v" }, "h", "^", opts)
 map({ "n", "v" }, "j", "h", opts)
 map({ "n", "v" }, "k", "j", opts)
-map({ "n", "v" }, ";", "$", opts)
+-- map({ "n", "v" }, ";", "$", opts)
 
--- page down // 확인 필요. !!<D-s>
-map("", ",", "<C-d>", opts)
+-- Ctrl+o navigate to the previous location in the jump list (think o as old)
+-- map("n", "<D-o>", "<C-o>", opts)
+--navigate to the next location in the jump list (i and o are usually next to each other)
+-- map("n", "<D-i>", "<C-i>", opts)
+
+-- code action ➡️ ctrl+opt+.
+map("n", "<C-S-d>", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+
+-- m ➡️ scroll
+map({ "n", "v" }, "m", "<C-u>", opts)
+map("n", "<C-m>", "m", opts)
+
+-- page down
+map({ "n", "v" }, ",", "<C-d>", opts)
 -- paste
--- map("n", "p", "<Sp>")
+map("n", "<C-S-c>", "gcc", opts)
 
 -- Cmd+s
-map("n", "<D-s>", ":w<Return>")
-map("i", "<D-s>", "<ESC>")
+map("n", "<M-s>", ":w<Return>")
+map("i", "<M-s>", "<ESC>")
 
--- comment line -- NOT WORK
--- TODO : command를 찾아야 한다.
--- map({ "n", "v", "i" }, "<D-/>", "gcc", opts)
-
-map("n", "<leader>so", ":source %<Return>", opts)
+-- prev buffer // not work
+map("n", "<S-j>", "<cmd>bprev<cr>", opts)
 
 -- telescope
 map("n", "<leader>tp", ":Telescope projects<Return>", opts)
@@ -51,7 +72,7 @@ map("n", "dw", "vb_d")
 map("n", "<C-a>", "gg<S-v>G")
 
 -- Jumplist
-map("n", "<C-m>", "<C-i>", opts)
+-- map("n", "<C-m>", "<C-i>", opts)
 
 -- New tab
 map("n", "te", "tabedit", opts)

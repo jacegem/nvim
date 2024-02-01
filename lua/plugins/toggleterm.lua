@@ -7,6 +7,14 @@ return {
     cmd = { "ToggleTerm" },
     keys = {
       {
+        "<D-slash>",
+        function()
+          local count = vim.v.count1
+          require("toggleterm").toggle(count, 0, Util.root.get(), "float")
+        end,
+        desc = "ToggleTerm (float root_dir)",
+      },
+      {
         "<leader>Tf",
         function()
           local count = vim.v.count1

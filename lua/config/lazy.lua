@@ -17,7 +17,8 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.nvim-dap" },
     -- import/override with your plugins
     { import = "plugins" },
-    { import = "plugins/project" },
+    { import = "plugins/lsp" },
+    { import = "plugins/clojure" },
     -- { import = "plugins/debugging" },
   },
   defaults = {
@@ -47,3 +48,10 @@ require("lazy").setup({
     },
   },
 })
+
+require("lazy.view.config").commands.install.key_plugin = "I"
+
+vim.cmd("set expandtab")
+vim.cmd("set tabstop=2")
+vim.cmd("set softtabstop=2")
+vim.cmd("set shiftwidth=2")
